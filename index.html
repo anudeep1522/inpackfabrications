@@ -65,6 +65,8 @@
             box-shadow: 0 20px 35px -10px rgba(0, 163, 224, 0.2);
         }
     </style>
+
+<style id="machine-filter-visibility-fix">#machinery .machine-card[hidden]{display:none!important;}</style>
 </head>
 <body class="font-sans text-slate-800 bg-lightBg antialiased selection:bg-brandSky selection:text-white">
 <!-- Top Announcement / ISO Certification Utility Bar -->
@@ -236,6 +238,12 @@
 <span class="text-brandSky-dark font-heading font-bold text-xs uppercase tracking-widest block mb-2">Our Product Catalogue</span>
 <h2 class="font-heading text-3xl sm:text-4xl font-bold text-darkSlate-900 mb-4">Automatic Packaging Machinery</h2>
 <p class="text-slate-600 text-sm">Browse our complete range by machine type: auger fillers, rotary cup fillers, weighers and semi-automatic machines.</p>
+</div>
+<div id="industry-machine-results" class="hidden mb-8 p-5 rounded-xl border border-brandSky/30 bg-sky-50 text-center" aria-live="polite">
+<p class="text-xs uppercase tracking-widest font-bold text-brandSky-dark mb-1">Recommended machines for</p>
+<h3 id="industry-machine-title" class="font-heading text-xl font-bold text-darkSlate-900"></h3>
+<p id="industry-machine-count" class="text-sm text-slate-600 mt-1"></p>
+<button type="button" onclick="filterMachines('all');document.getElementById('industry-machine-results').classList.add('hidden')" class="mt-3 text-xs font-bold text-brandSky-dark underline">Show all machines</button>
 </div>
 <!-- Category Filter Buttons -->
 <div class="flex flex-wrap justify-center gap-2 mb-10">
@@ -424,35 +432,35 @@
 <p class="text-slate-300 text-sm">Tailor-made packaging setups optimized for diverse bulk density and flow characteristics.</p>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-<div class="bg-darkSlate-800 p-6 rounded-2xl border border-darkSlate-700 text-center hover:border-brandSky transition-all group">
+<div data-industry="food-powders" role="button" tabindex="0" aria-label="Show machines for food powders" onclick="filterIndustryMachines('food-powders')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterIndustryMachines('food-powders')}" class="bg-darkSlate-800 p-6 rounded-2xl border border-darkSlate-700 text-center hover:border-brandSky transition-all group cursor-pointer focus:outline-none focus:ring-2 focus:ring-brandSky">
 <div class="w-14 h-14 rounded-full bg-brandSky/10 text-brandSky flex items-center justify-center mx-auto text-2xl mb-4 group-hover:scale-110 transition-transform">
 <i class="fa-solid fa-box-archive"></i>
 </div>
 <h3 class="font-heading font-bold text-base mb-2">Food Powders</h3>
 <p class="text-xs text-slate-400">Milk powder, cocoa, spices, flour, turmeric, baking mixes</p>
 </div>
-<div class="bg-darkSlate-800 p-6 rounded-2xl border border-darkSlate-700 text-center hover:border-brandSky transition-all group">
+<div data-industry="grains-pulses" role="button" tabindex="0" aria-label="Show machines for grains pulses" onclick="filterIndustryMachines('grains-pulses')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterIndustryMachines('grains-pulses')}" class="bg-darkSlate-800 p-6 rounded-2xl border border-darkSlate-700 text-center hover:border-brandSky transition-all group cursor-pointer focus:outline-none focus:ring-2 focus:ring-brandSky">
 <div class="w-14 h-14 rounded-full bg-brandSky/10 text-brandSky flex items-center justify-center mx-auto text-2xl mb-4 group-hover:scale-110 transition-transform">
 <i class="fa-solid fa-wheat-awn"></i>
 </div>
 <h3 class="font-heading font-bold text-base mb-2">Grains &amp; Pulses</h3>
 <p class="text-xs text-slate-400">Rice, lentils, dal, cereals, sooji, sugar, salt</p>
 </div>
-<div class="bg-darkSlate-800 p-6 rounded-2xl border border-darkSlate-700 text-center hover:border-brandSky transition-all group">
+<div data-industry="seeds-agriculture" role="button" tabindex="0" aria-label="Show machines for seeds agriculture" onclick="filterIndustryMachines('seeds-agriculture')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterIndustryMachines('seeds-agriculture')}" class="bg-darkSlate-800 p-6 rounded-2xl border border-darkSlate-700 text-center hover:border-brandSky transition-all group cursor-pointer focus:outline-none focus:ring-2 focus:ring-brandSky">
 <div class="w-14 h-14 rounded-full bg-brandSky/10 text-brandSky flex items-center justify-center mx-auto text-2xl mb-4 group-hover:scale-110 transition-transform">
 <i class="fa-solid fa-seedling"></i>
 </div>
 <h3 class="font-heading font-bold text-base mb-2">Seeds &amp; Agriculture</h3>
 <p class="text-xs text-slate-400">Crop seeds, bio-pesticides, granular fertilizers</p>
 </div>
-<div class="bg-darkSlate-800 p-6 rounded-2xl border border-darkSlate-700 text-center hover:border-brandSky transition-all group">
+<div data-industry="snacks-sweets" role="button" tabindex="0" aria-label="Show machines for snacks sweets" onclick="filterIndustryMachines('snacks-sweets')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterIndustryMachines('snacks-sweets')}" class="bg-darkSlate-800 p-6 rounded-2xl border border-darkSlate-700 text-center hover:border-brandSky transition-all group cursor-pointer focus:outline-none focus:ring-2 focus:ring-brandSky">
 <div class="w-14 h-14 rounded-full bg-brandRed/20 text-brandRed flex items-center justify-center mx-auto text-2xl mb-4 group-hover:scale-110 transition-transform">
 <i class="fa-solid fa-cookie"></i>
 </div>
 <h3 class="font-heading font-bold text-base mb-2">Snacks &amp; Sweets</h3>
 <p class="text-xs text-slate-400">Potato chips, namkeen, candies, dry fruits, cookies</p>
 </div>
-<div class="bg-darkSlate-800 p-6 rounded-2xl border border-darkSlate-700 text-center hover:border-brandSky transition-all group">
+<div data-industry="chemicals-detergents" role="button" tabindex="0" aria-label="Show machines for chemicals detergents" onclick="filterIndustryMachines('chemicals-detergents')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterIndustryMachines('chemicals-detergents')}" class="bg-darkSlate-800 p-6 rounded-2xl border border-darkSlate-700 text-center hover:border-brandSky transition-all group cursor-pointer focus:outline-none focus:ring-2 focus:ring-brandSky">
 <div class="w-14 h-14 rounded-full bg-brandSky/10 text-brandSky flex items-center justify-center mx-auto text-2xl mb-4 group-hover:scale-110 transition-transform">
 <i class="fa-solid fa-flask"></i>
 </div>
@@ -582,12 +590,9 @@
 <!-- Col 1: Brand -->
 <div>
 <div class="flex items-center gap-2 mb-4">
-<span class="font-heading font-extrabold text-2xl text-white">IFPL</span>
-<span class="text-brandRed font-bold text-xs">TM</span>
+<span class="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">IFPL</span>
+<span class="inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-brandRed text-brandRed font-extrabold text-[10px] sm:text-xs leading-none" aria-label="Trademark">TM</span>
 </div>
-<p class="text-xs text-slate-400 mb-4 leading-relaxed">
-                        INPACK FABRICATIONS PVT. LTD. — ISO 9001:2015 Certified Manufacturer of high-speed automatic vertical form fill seal machinery and weighing systems since 2004.
-                    </p>
 <p class="text-xs text-brandSky italic font-medium">"commitment to excellence"</p>
 </div>
 <!-- Col 2: Navigation -->
@@ -605,9 +610,9 @@
 <div>
 <h4 class="font-heading font-bold text-white text-sm uppercase tracking-wider mb-4 border-b border-darkSlate-800 pb-2">Our Products</h4>
 <ul class="space-y-2 text-xs">
-<li><a class="hover:text-brandSky transition-colors" href="#machinery">Auger Powder Fillers</a></li>
-<li><a class="hover:text-brandSky transition-colors" href="#machinery">Rotary Cup Fillers</a></li>
-<li><a class="hover:text-brandSky transition-colors" href="#machinery">Multihead Combination Weighers</a></li>
+<li><a class="hover:text-brandSky transition-colors" href="#machinery" onclick="filterMachines('auger')">Auger Powder Fillers</a></li>
+<li><a class="hover:text-brandSky transition-colors" href="#machinery" onclick="filterMachines('cup')">Rotary Cup Fillers</a></li>
+<li><a class="hover:text-brandSky transition-colors" href="#machinery" onclick="filterMachines('weigher')">Multihead Combination Weighers</a></li>
 <li><a class="hover:text-brandSky transition-colors" href="#contact">Custom Automation Lines</a></li>
 </ul>
 </div>
@@ -627,6 +632,58 @@
 </div>
 </div>
 </footer>
+<!-- Classic Industry Machine Selector -->
+<div id="industry-machines-popup" class="fixed inset-0 z-[60] hidden items-center justify-center bg-slate-950/70 backdrop-blur-sm p-3 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="industry-popup-title" onclick="if(event.target===this)closeIndustryMachinesPopup()">
+  <div class="bg-white w-full max-w-3xl max-h-[88vh] rounded-xl shadow-2xl overflow-hidden flex flex-col border border-slate-200">
+    <div class="bg-darkSlate-900 text-white px-6 sm:px-8 py-5 flex items-center justify-between gap-4 border-b-4 border-brandSky">
+      <div>
+        <p class="text-brandSky text-[10px] font-bold uppercase tracking-[0.22em]">INPACK FABRICATIONS</p>
+        <h3 id="industry-popup-title" class="font-heading text-xl sm:text-2xl font-bold mt-1">Suitable Packaging Machines</h3>
+        <p id="industry-popup-count" class="text-slate-300 text-xs mt-1"></p>
+      </div>
+      <button type="button" onclick="closeIndustryMachinesPopup()" aria-label="Close popup" class="shrink-0 w-10 h-10 rounded-full border border-white/30 hover:bg-brandRed text-white text-2xl">&times;</button>
+    </div>
+    <div class="px-5 sm:px-8 py-5 overflow-y-auto bg-slate-50 flex-1">
+      <div id="industry-popup-list-view">
+        <p class="text-sm text-slate-600 mb-4">Select a machine name below to view its details and specifications.</p>
+        <div id="industry-popup-machine-list" class="divide-y divide-slate-200 bg-white border border-slate-200 rounded-lg overflow-hidden"></div>
+      </div>
+      <div id="industry-popup-detail-view" class="hidden">
+        <button type="button" onclick="showIndustryMachineList()" class="mb-5 text-sm font-bold text-brandSky-dark hover:text-darkSlate-900 flex items-center gap-2">
+          <span aria-hidden="true">←</span> Back to machine list
+        </button>
+        <div class="bg-white border border-slate-200 rounded-lg p-5 sm:p-7">
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-brandSky-dark mb-2">Machine details</p>
+          <h4 id="industry-detail-name" class="font-heading text-xl sm:text-2xl font-bold text-darkSlate-900 mb-3"></h4>
+          <p id="industry-detail-description" class="text-sm leading-6 text-slate-600 mb-5"></p>
+          <div id="industry-detail-applications-wrap" class="hidden mb-5">
+            <h5 class="text-xs font-bold uppercase tracking-wider text-darkSlate-900 mb-2">Key applications</h5>
+            <p id="industry-detail-applications" class="text-sm text-slate-600 leading-6"></p>
+          </div>
+          <div id="industry-detail-price-wrap" class="hidden mb-6 bg-slate-50 border border-slate-200 rounded-md px-4 py-3">
+            <span class="block text-[10px] uppercase tracking-wider font-bold text-slate-500">Indicative machine price</span>
+            <strong id="industry-detail-price" class="text-lg text-darkSlate-900"></strong>
+          </div>
+          <div class="border-t border-slate-200 pt-5">
+            <h5 class="font-heading font-bold text-base text-darkSlate-900 mb-3">Technical specifications</h5>
+            <div id="industry-detail-specs" class="overflow-x-auto"></div>
+            <p id="industry-detail-specs-note" class="hidden text-xs text-slate-500 mt-3">For model-specific configuration, exact capacity and a detailed technical datasheet, please contact our team.</p>
+          </div>
+          <button id="industry-detail-enquiry" type="button" class="mt-6 bg-brandRed hover:bg-red-800 text-white text-xs font-bold uppercase tracking-wider px-6 py-3 rounded-md transition-colors">Enquire about this machine</button>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-slate-200 px-5 sm:px-8 py-4 flex justify-end bg-white">
+      <button type="button" onclick="closeIndustryMachinesPopup()" class="border border-slate-300 hover:border-darkSlate-900 text-darkSlate-900 font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-md">Close</button>
+    </div>
+  </div>
+</div>
+<style>
+  #industry-machines-popup:not(.hidden) { display: flex; }
+  #industry-popup-machine-list .industry-machine-option { display:flex; align-items:center; justify-content:space-between; gap:1rem; width:100%; padding:1rem 1.15rem; text-align:left; background:#fff; color:#172b3b; transition:background .18s ease; }
+  #industry-popup-machine-list .industry-machine-option:hover, #industry-popup-machine-list .industry-machine-option:focus { background:#eef6fa; outline:none; }
+  #industry-popup-machine-list .industry-machine-option + .industry-machine-option { border-top:1px solid #e2e8f0; }
+</style>
 <!-- Instant Quote Request Modal -->
 <div class="fixed inset-0 bg-darkSlate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" id="quote-modal">
 <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-brandSky/30 overflow-hidden relative">
@@ -701,29 +758,165 @@
             });
         });
 
-        // Machine Category Filter
+        // Industry selector: show a clean names-only list, then a separate machine detail view.
+        let currentIndustryMachines = [];
+        let currentIndustryMachine = null;
+
+        function filterIndustryMachines(industry) {
+            const industryMap = {
+                'food-powders': { title: 'Food Products & Powders', types: ['auger', 'semi', 'sachet'] },
+                'grains-pulses': { title: 'Grains & Pulses', types: ['cup', 'weigher', 'semi'] },
+                'seeds-agriculture': { title: 'Seeds & Agriculture', types: ['cup', 'weigher', 'semi'] },
+                'snacks-sweets': { title: 'Snacks & Sweets', types: ['weigher', 'cup', 'sachet'] },
+                'chemicals-detergents': { title: 'Chemicals & Detergents', types: ['auger', 'cup', 'semi'] }
+            };
+            const selection = industryMap[industry];
+            if (!selection) return;
+
+            const popup = document.getElementById('industry-machines-popup');
+            const list = document.getElementById('industry-popup-machine-list');
+            const allCards = Array.from(document.querySelectorAll('#machinery .machine-card'));
+            currentIndustryMachines = allCards.filter(card =>
+                selection.types.some(type => card.classList.contains(type))
+            );
+
+            document.getElementById('industry-popup-title').textContent = selection.title;
+            document.getElementById('industry-popup-count').textContent =
+                currentIndustryMachines.length + (currentIndustryMachines.length === 1 ? ' machine available' : ' machines available');
+
+            list.innerHTML = '';
+            currentIndustryMachines.forEach((card, index) => {
+                const name = card.querySelector('h3')?.textContent.trim() || 'Packaging Machine';
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'industry-machine-option';
+                button.innerHTML = '<span class="flex items-center gap-3 min-w-0"><span class="text-xs font-bold text-brandSky-dark">' +
+                    String(index + 1).padStart(2, '0') + '</span><span class="font-semibold text-sm sm:text-base">' +
+                    escapeIndustryText(name) + '</span></span><span class="text-brandSky-dark text-lg" aria-hidden="true">›</span>';
+                button.addEventListener('click', () => showIndustryMachineDetails(card));
+                list.appendChild(button);
+            });
+
+            if (!currentIndustryMachines.length) {
+                list.innerHTML = '<p class="p-6 text-center text-sm text-slate-600">Machine details for this product category will be updated soon. Please contact our team for assistance.</p>';
+            }
+
+            showIndustryMachineList();
+            popup.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function escapeIndustryText(value) {
+            return String(value).replace(/[&<>"']/g, char => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[char]));
+        }
+
+        function showIndustryMachineList() {
+            document.getElementById('industry-popup-list-view').classList.remove('hidden');
+            document.getElementById('industry-popup-detail-view').classList.add('hidden');
+            currentIndustryMachine = null;
+        }
+
+        function showIndustryMachineDetails(card) {
+            currentIndustryMachine = card;
+            const name = card.querySelector('h3')?.textContent.trim() || 'Packaging Machine';
+            const paragraphs = Array.from(card.querySelectorAll('p')).map(p => p.textContent.trim()).filter(Boolean);
+            const description = paragraphs.find(t => !/^(Price:|Machine Price|Starting Price)/i.test(t) && !/^₹/.test(t)) || '';
+            const applicationsHeading = Array.from(card.querySelectorAll('h4,h5,strong')).find(el => /Key Applications/i.test(el.textContent));
+            let applications = '';
+            if (applicationsHeading) {
+                const parentText = applicationsHeading.parentElement?.textContent || '';
+                applications = parentText.replace(/Key Applications:?/i, '').trim();
+            }
+
+            const priceText = card.textContent.match(/₹\s?[\d,]+(?:\*?)/);
+            document.getElementById('industry-detail-name').textContent = name;
+            document.getElementById('industry-detail-description').textContent = description;
+            document.getElementById('industry-detail-applications').textContent = applications;
+            document.getElementById('industry-detail-applications-wrap').classList.toggle('hidden', !applications);
+            document.getElementById('industry-detail-price').textContent = priceText ? priceText[0] : '';
+            document.getElementById('industry-detail-price-wrap').classList.toggle('hidden', !priceText);
+
+            const type = ['auger', 'cup', 'weigher', 'semi', 'sachet'].find(t => card.classList.contains(t));
+            const specRows = Array.from(document.querySelectorAll('#specs tbody tr'));
+            const typeToModel = { auger: 'Auger Filler Machine', cup: 'Rotary Cup Filler Machine', weigher: 'Multihead Weigh Filler Machine' };
+            const matchedRow = specRows.find(row => row.cells[0]?.textContent.trim() === typeToModel[type]);
+            const specsContainer = document.getElementById('industry-detail-specs');
+            specsContainer.innerHTML = '';
+
+            if (matchedRow) {
+                const labels = ['Machine model', 'Fill volume / range', 'Packaging speed', 'Compatible materials', 'Power requirement'];
+                const table = document.createElement('table');
+                table.className = 'w-full text-sm text-left border-collapse';
+                const tbody = document.createElement('tbody');
+                Array.from(matchedRow.cells).slice(0, 5).forEach((cell, i) => {
+                    const tr = document.createElement('tr');
+                    tr.className = 'border-b border-slate-100';
+                    const th = document.createElement('th');
+                    th.className = 'py-2.5 pr-4 text-slate-500 font-semibold align-top w-2/5';
+                    th.textContent = labels[i];
+                    const td = document.createElement('td');
+                    td.className = 'py-2.5 text-darkSlate-900 font-medium';
+                    td.textContent = cell.textContent.trim();
+                    tr.append(th, td);
+                    tbody.appendChild(tr);
+                });
+                table.appendChild(tbody);
+                specsContainer.appendChild(table);
+                document.getElementById('industry-detail-specs-note').classList.toggle('hidden', type === 'auger' || type === 'cup' || type === 'weigher');
+            } else {
+                specsContainer.innerHTML = '<p class="text-sm text-slate-600 leading-6">Detailed technical specifications for this model are available on request. Please send an enquiry and our team will share the suitable configuration and datasheet.</p>';
+                document.getElementById('industry-detail-specs-note').classList.add('hidden');
+            }
+
+            const enquiry = document.getElementById('industry-detail-enquiry');
+            enquiry.onclick = () => {
+                closeIndustryMachinesPopup();
+                openQuoteModal(name);
+            };
+            document.getElementById('industry-popup-list-view').classList.add('hidden');
+            document.getElementById('industry-popup-detail-view').classList.remove('hidden');
+        }
+
+        function closeIndustryMachinesPopup() {
+            const popup = document.getElementById('industry-machines-popup');
+            if (popup) popup.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            showIndustryMachineList();
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') closeIndustryMachinesPopup();
+        });
+
         function filterMachines(category) {
-            const cards = document.querySelectorAll('.machine-card');
-            const btns = document.querySelectorAll('.tab-btn');
+            const notice = document.getElementById('industry-machine-results');
+            if (notice) notice.classList.add('hidden');
+
+            // Only filter the actual catalogue cards, never popup copies or other page cards.
+            const catalogue = document.querySelector('#machinery');
+            if (!catalogue) return;
+            const cards = Array.from(catalogue.querySelectorAll(':scope .machine-card'));
+            const btns = catalogue.querySelectorAll('.tab-btn');
 
             btns.forEach(btn => {
-                if (btn.dataset.tab === category) {
-                    btn.classList.add('bg-brandSky', 'text-white', 'border-brandSky');
-                    btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
-                } else {
-                    btn.classList.remove('bg-brandSky', 'text-white', 'border-brandSky');
-                    btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
-                }
+                const selected = btn.dataset.tab === category;
+                btn.classList.toggle('bg-brandSky', selected);
+                btn.classList.toggle('text-white', selected);
+                btn.classList.toggle('border-brandSky', selected);
+                btn.classList.toggle('bg-white', !selected);
+                btn.classList.toggle('text-slate-700', !selected);
+                btn.classList.toggle('border-slate-200', !selected);
             });
 
             cards.forEach(card => {
-                if (category === 'all' || card.classList.contains(category)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+                const showCard = category === 'all' || card.classList.contains(category);
+                card.hidden = !showCard;
+                card.style.setProperty('display', showCard ? '' : 'none', 'important');
             });
         }
+
 
         // Modal Controls
         function openQuoteModal(machineName = 'General Packaging Machine') {
